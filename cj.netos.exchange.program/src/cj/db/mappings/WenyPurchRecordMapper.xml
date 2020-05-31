@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cj.netos.exchange.mapper.WenyPurchRecordMapper">
+    <resultMap id="BaseResultMap" type="cj.netos.exchange.model.WenyPurchRecord">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        <id column="sn" jdbcType="VARCHAR" property="sn"/>
+        <result column="person" jdbcType="VARCHAR" property="person"/>
+        <result column="person_name" jdbcType="VARCHAR" property="personName"/>
+        <result column="currency" jdbcType="VARCHAR" property="currency"/>
+        <result column="purch_amount" jdbcType="BIGINT" property="purchAmount"/>
+        <result column="stock" jdbcType="DECIMAL" property="stock"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="service_fee" jdbcType="BIGINT" property="serviceFee"/>
+        <result column="fee_ratio" jdbcType="DECIMAL" property="feeRatio"/>
+        <result column="ttm" jdbcType="DECIMAL" property="ttm"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="ctime" jdbcType="VARCHAR" property="ctime"/>
+        <result column="lutime" jdbcType="VARCHAR" property="lutime"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="bankid" jdbcType="VARCHAR" property="bankid"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+        <result column="principal_ratio" jdbcType="DECIMAL" property="principalRatio"/>
+        <result column="principal_amount" jdbcType="BIGINT" property="principalAmount"/>
+        <result column="bank_purch_sn" jdbcType="VARCHAR" property="bankPurchSn"/>
+        <result column="free_ratio" jdbcType="DECIMAL" property="freeRatio"/>
+        <result column="reserve_ratio" jdbcType="DECIMAL" property="reserveRatio"/>
+        <result column="free_amount" jdbcType="BIGINT" property="freeAmount"/>
+        <result column="reserve_amount" jdbcType="BIGINT" property="reserveAmount"/>
+        <result column="exchange_state" jdbcType="INTEGER" property="exchangeState"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        sn, person, person_name, currency, purch_amount, stock, price, service_fee, fee_ratio,
+        ttm, `state`, ctime, lutime, note, bankid, `status`, message, principal_ratio, principal_amount,
+        bank_purch_sn, free_ratio, reserve_ratio, free_amount, reserve_amount, exchange_state
+    </sql>
+    <select id="selectByExample" parameterType="cj.netos.exchange.model.WenyPurchRecordExample"
+            resultMap="BaseResultMap">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from weny_purch_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        select
+        <include refid="Base_Column_List"/>
+        from weny_purch_record
+        where sn = #{sn,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        delete from weny_purch_record
+        where sn = #{sn,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="cj.netos.exchange.model.WenyPurchRecordExample">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        delete from weny_purch_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="cj.netos.exchange.model.WenyPurchRecord">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        insert into weny_purch_record (sn, person, person_name,
+        currency, purch_amount, stock,
+        price, service_fee, fee_ratio,
+        ttm, `state`, ctime,
+        lutime, note, bankid,
+        `status`, message, principal_ratio,
+        principal_amount, bank_purch_sn, free_ratio,
+        reserve_ratio, free_amount, reserve_amount,
+        exchange_state)
+        values (#{sn,jdbcType=VARCHAR}, #{person,jdbcType=VARCHAR}, #{personName,jdbcType=VARCHAR},
+        #{currency,jdbcType=VARCHAR}, #{purchAmount,jdbcType=BIGINT}, #{stock,jdbcType=DECIMAL},
+        #{price,jdbcType=DECIMAL}, #{serviceFee,jdbcType=BIGINT}, #{feeRatio,jdbcType=DECIMAL},
+        #{ttm,jdbcType=DECIMAL}, #{state,jdbcType=INTEGER}, #{ctime,jdbcType=VARCHAR},
+        #{lutime,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{bankid,jdbcType=VARCHAR},
+        #{status,jdbcType=INTEGER}, #{message,jdbcType=VARCHAR}, #{principalRatio,jdbcType=DECIMAL},
+        #{principalAmount,jdbcType=BIGINT}, #{bankPurchSn,jdbcType=VARCHAR}, #{freeRatio,jdbcType=DECIMAL},
+        #{reserveRatio,jdbcType=DECIMAL}, #{freeAmount,jdbcType=BIGINT}, #{reserveAmount,jdbcType=BIGINT},
+        #{exchangeState,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="cj.netos.exchange.model.WenyPurchRecord">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        insert into weny_purch_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sn != null">
+                sn,
+            </if>
+            <if test="person != null">
+                person,
+            </if>
+            <if test="personName != null">
+                person_name,
+            </if>
+            <if test="currency != null">
+                currency,
+            </if>
+            <if test="purchAmount != null">
+                purch_amount,
+            </if>
+            <if test="stock != null">
+                stock,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="serviceFee != null">
+                service_fee,
+            </if>
+            <if test="feeRatio != null">
+                fee_ratio,
+            </if>
+            <if test="ttm != null">
+                ttm,
+            </if>
+            <if test="state != null">
+                `state`,
+            </if>
+            <if test="ctime != null">
+                ctime,
+            </if>
+            <if test="lutime != null">
+                lutime,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+            <if test="bankid != null">
+                bankid,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="message != null">
+                message,
+            </if>
+            <if test="principalRatio != null">
+                principal_ratio,
+            </if>
+            <if test="principalAmount != null">
+                principal_amount,
+            </if>
+            <if test="bankPurchSn != null">
+                bank_purch_sn,
+            </if>
+            <if test="freeRatio != null">
+                free_ratio,
+            </if>
+            <if test="reserveRatio != null">
+                reserve_ratio,
+            </if>
+            <if test="freeAmount != null">
+                free_amount,
+            </if>
+            <if test="reserveAmount != null">
+                reserve_amount,
+            </if>
+            <if test="exchangeState != null">
+                exchange_state,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sn != null">
+                #{sn,jdbcType=VARCHAR},
+            </if>
+            <if test="person != null">
+                #{person,jdbcType=VARCHAR},
+            </if>
+            <if test="personName != null">
+                #{personName,jdbcType=VARCHAR},
+            </if>
+            <if test="currency != null">
+                #{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="purchAmount != null">
+                #{purchAmount,jdbcType=BIGINT},
+            </if>
+            <if test="stock != null">
+                #{stock,jdbcType=DECIMAL},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="serviceFee != null">
+                #{serviceFee,jdbcType=BIGINT},
+            </if>
+            <if test="feeRatio != null">
+                #{feeRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="ttm != null">
+                #{ttm,jdbcType=DECIMAL},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="ctime != null">
+                #{ctime,jdbcType=VARCHAR},
+            </if>
+            <if test="lutime != null">
+                #{lutime,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=VARCHAR},
+            </if>
+            <if test="bankid != null">
+                #{bankid,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="message != null">
+                #{message,jdbcType=VARCHAR},
+            </if>
+            <if test="principalRatio != null">
+                #{principalRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="principalAmount != null">
+                #{principalAmount,jdbcType=BIGINT},
+            </if>
+            <if test="bankPurchSn != null">
+                #{bankPurchSn,jdbcType=VARCHAR},
+            </if>
+            <if test="freeRatio != null">
+                #{freeRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="reserveRatio != null">
+                #{reserveRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="freeAmount != null">
+                #{freeAmount,jdbcType=BIGINT},
+            </if>
+            <if test="reserveAmount != null">
+                #{reserveAmount,jdbcType=BIGINT},
+            </if>
+            <if test="exchangeState != null">
+                #{exchangeState,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="cj.netos.exchange.model.WenyPurchRecordExample"
+            resultType="java.lang.Long">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        select count(*) from weny_purch_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        update weny_purch_record
+        <set>
+            <if test="record.sn != null">
+                sn = #{record.sn,jdbcType=VARCHAR},
+            </if>
+            <if test="record.person != null">
+                person = #{record.person,jdbcType=VARCHAR},
+            </if>
+            <if test="record.personName != null">
+                person_name = #{record.personName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.currency != null">
+                currency = #{record.currency,jdbcType=VARCHAR},
+            </if>
+            <if test="record.purchAmount != null">
+                purch_amount = #{record.purchAmount,jdbcType=BIGINT},
+            </if>
+            <if test="record.stock != null">
+                stock = #{record.stock,jdbcType=DECIMAL},
+            </if>
+            <if test="record.price != null">
+                price = #{record.price,jdbcType=DECIMAL},
+            </if>
+            <if test="record.serviceFee != null">
+                service_fee = #{record.serviceFee,jdbcType=BIGINT},
+            </if>
+            <if test="record.feeRatio != null">
+                fee_ratio = #{record.feeRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="record.ttm != null">
+                ttm = #{record.ttm,jdbcType=DECIMAL},
+            </if>
+            <if test="record.state != null">
+                `state` = #{record.state,jdbcType=INTEGER},
+            </if>
+            <if test="record.ctime != null">
+                ctime = #{record.ctime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lutime != null">
+                lutime = #{record.lutime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.note != null">
+                note = #{record.note,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bankid != null">
+                bankid = #{record.bankid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                `status` = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.message != null">
+                message = #{record.message,jdbcType=VARCHAR},
+            </if>
+            <if test="record.principalRatio != null">
+                principal_ratio = #{record.principalRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="record.principalAmount != null">
+                principal_amount = #{record.principalAmount,jdbcType=BIGINT},
+            </if>
+            <if test="record.bankPurchSn != null">
+                bank_purch_sn = #{record.bankPurchSn,jdbcType=VARCHAR},
+            </if>
+            <if test="record.freeRatio != null">
+                free_ratio = #{record.freeRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="record.reserveRatio != null">
+                reserve_ratio = #{record.reserveRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="record.freeAmount != null">
+                free_amount = #{record.freeAmount,jdbcType=BIGINT},
+            </if>
+            <if test="record.reserveAmount != null">
+                reserve_amount = #{record.reserveAmount,jdbcType=BIGINT},
+            </if>
+            <if test="record.exchangeState != null">
+                exchange_state = #{record.exchangeState,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        update weny_purch_record
+        set sn = #{record.sn,jdbcType=VARCHAR},
+        person = #{record.person,jdbcType=VARCHAR},
+        person_name = #{record.personName,jdbcType=VARCHAR},
+        currency = #{record.currency,jdbcType=VARCHAR},
+        purch_amount = #{record.purchAmount,jdbcType=BIGINT},
+        stock = #{record.stock,jdbcType=DECIMAL},
+        price = #{record.price,jdbcType=DECIMAL},
+        service_fee = #{record.serviceFee,jdbcType=BIGINT},
+        fee_ratio = #{record.feeRatio,jdbcType=DECIMAL},
+        ttm = #{record.ttm,jdbcType=DECIMAL},
+        `state` = #{record.state,jdbcType=INTEGER},
+        ctime = #{record.ctime,jdbcType=VARCHAR},
+        lutime = #{record.lutime,jdbcType=VARCHAR},
+        note = #{record.note,jdbcType=VARCHAR},
+        bankid = #{record.bankid,jdbcType=VARCHAR},
+        `status` = #{record.status,jdbcType=INTEGER},
+        message = #{record.message,jdbcType=VARCHAR},
+        principal_ratio = #{record.principalRatio,jdbcType=DECIMAL},
+        principal_amount = #{record.principalAmount,jdbcType=BIGINT},
+        bank_purch_sn = #{record.bankPurchSn,jdbcType=VARCHAR},
+        free_ratio = #{record.freeRatio,jdbcType=DECIMAL},
+        reserve_ratio = #{record.reserveRatio,jdbcType=DECIMAL},
+        free_amount = #{record.freeAmount,jdbcType=BIGINT},
+        reserve_amount = #{record.reserveAmount,jdbcType=BIGINT},
+        exchange_state = #{record.exchangeState,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="cj.netos.exchange.model.WenyPurchRecord">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        update weny_purch_record
+        <set>
+            <if test="person != null">
+                person = #{person,jdbcType=VARCHAR},
+            </if>
+            <if test="personName != null">
+                person_name = #{personName,jdbcType=VARCHAR},
+            </if>
+            <if test="currency != null">
+                currency = #{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="purchAmount != null">
+                purch_amount = #{purchAmount,jdbcType=BIGINT},
+            </if>
+            <if test="stock != null">
+                stock = #{stock,jdbcType=DECIMAL},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="serviceFee != null">
+                service_fee = #{serviceFee,jdbcType=BIGINT},
+            </if>
+            <if test="feeRatio != null">
+                fee_ratio = #{feeRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="ttm != null">
+                ttm = #{ttm,jdbcType=DECIMAL},
+            </if>
+            <if test="state != null">
+                `state` = #{state,jdbcType=INTEGER},
+            </if>
+            <if test="ctime != null">
+                ctime = #{ctime,jdbcType=VARCHAR},
+            </if>
+            <if test="lutime != null">
+                lutime = #{lutime,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                note = #{note,jdbcType=VARCHAR},
+            </if>
+            <if test="bankid != null">
+                bankid = #{bankid,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="message != null">
+                message = #{message,jdbcType=VARCHAR},
+            </if>
+            <if test="principalRatio != null">
+                principal_ratio = #{principalRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="principalAmount != null">
+                principal_amount = #{principalAmount,jdbcType=BIGINT},
+            </if>
+            <if test="bankPurchSn != null">
+                bank_purch_sn = #{bankPurchSn,jdbcType=VARCHAR},
+            </if>
+            <if test="freeRatio != null">
+                free_ratio = #{freeRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="reserveRatio != null">
+                reserve_ratio = #{reserveRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="freeAmount != null">
+                free_amount = #{freeAmount,jdbcType=BIGINT},
+            </if>
+            <if test="reserveAmount != null">
+                reserve_amount = #{reserveAmount,jdbcType=BIGINT},
+            </if>
+            <if test="exchangeState != null">
+                exchange_state = #{exchangeState,jdbcType=INTEGER},
+            </if>
+        </set>
+        where sn = #{sn,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cj.netos.exchange.model.WenyPurchRecord">
+        <!-- @mbg.generated: generated automatically, do not modify! -->
+        update weny_purch_record
+        set person = #{person,jdbcType=VARCHAR},
+        person_name = #{personName,jdbcType=VARCHAR},
+        currency = #{currency,jdbcType=VARCHAR},
+        purch_amount = #{purchAmount,jdbcType=BIGINT},
+        stock = #{stock,jdbcType=DECIMAL},
+        price = #{price,jdbcType=DECIMAL},
+        service_fee = #{serviceFee,jdbcType=BIGINT},
+        fee_ratio = #{feeRatio,jdbcType=DECIMAL},
+        ttm = #{ttm,jdbcType=DECIMAL},
+        `state` = #{state,jdbcType=INTEGER},
+        ctime = #{ctime,jdbcType=VARCHAR},
+        lutime = #{lutime,jdbcType=VARCHAR},
+        note = #{note,jdbcType=VARCHAR},
+        bankid = #{bankid,jdbcType=VARCHAR},
+        `status` = #{status,jdbcType=INTEGER},
+        message = #{message,jdbcType=VARCHAR},
+        principal_ratio = #{principalRatio,jdbcType=DECIMAL},
+        principal_amount = #{principalAmount,jdbcType=BIGINT},
+        bank_purch_sn = #{bankPurchSn,jdbcType=VARCHAR},
+        free_ratio = #{freeRatio,jdbcType=DECIMAL},
+        reserve_ratio = #{reserveRatio,jdbcType=DECIMAL},
+        free_amount = #{freeAmount,jdbcType=BIGINT},
+        reserve_amount = #{reserveAmount,jdbcType=BIGINT},
+        exchange_state = #{exchangeState,jdbcType=INTEGER}
+        where sn = #{sn,jdbcType=VARCHAR}
+    </update>
+
+    <select id="page" parameterType="cj.netos.exchange.model.WenyPurchRecord" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from weny_purch_record
+        where bankid = #{bankid,jdbcType=VARCHAR}
+        and person = #{person,jdbcType=VARCHAR}
+        and state=1
+        and status=200
+        and exchange_state=0
+        order by ctime asc,ttm asc
+        limit #{offset},#{limit}
+    </select>
+</mapper>

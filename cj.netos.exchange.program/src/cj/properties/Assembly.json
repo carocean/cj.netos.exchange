@@ -1,0 +1,80 @@
+{
+	entryPoint : {
+		plugins: [
+			{
+				name:"mybatis",
+				class:"cj.studio.orm.mybatis.MyBatisPlugin",
+				parameters:{
+					classes:"[
+					]",
+					packages:"[
+					]"
+				}
+			}
+		],
+		activators: [
+			{
+				name: '开放口服务活动器',
+				class: 'cj.studio.openport.OpenportEntryPointActivator',
+				parameters: {
+					"publicAPIPath": '/portsapi',
+					checkAppSignStrategy: 'cj.netos.exchange.program.AppSignStrategy',
+					checkAccessTokenStrategy: 'cj.netos.exchange.program.CheckAccessTokenStrategy'
+				}
+			}
+		]
+	},
+	assemblyInfo : {
+		assemblyTitle : "exchange",
+		assemblyResource:"site=/site;http.root=$(site)/web;http.jss=$(site)/jss/http;ws.jss=$(site)/jss/ws",
+		assemblyDescription : "清兑中心",
+		assemblyConfiguration : "",
+		assemblyCompany : "cj工作室出品，lns平台制造",
+		assemblyProduct : "cj.netos.exchange",
+		assemblyCopyright : "Copyright   2011",
+		assemblyTrademark : "",
+		assemblyCulture : "",
+		guid : "104C4BC3-8D6E-42E2-AF64-47790952C8D2",
+		assemblyVersion : "1.0.0.0",
+		assemblyFileVersion : "1.0.0.0"
+	},
+	global:{
+		default:"zh_CN",
+		desc:"如果系统环境要求各芯片采用的语言本芯片没有，则芯片可采用默认语言"
+		},
+	serviceContainer : {
+		name : "netContainer",
+		switchFilter:"off",
+		monitor: "cj.netos.rabbitmq.DefaultRabbitMQMonitor",
+		jss:[{
+			module:"services1",
+			package:"cj.netos.exchange.jss",
+			unzip:"true",
+			searchMode:"link",
+			extName:".jss.js"
+		}],
+		scans : [{
+			package : "cj.studio.orm.mybatis",
+			extName : ".class|.json|.xml",
+			exoterical:"true"
+		},{
+			package : "cj.netos.exchange.program",
+			extName : ".class|.json|.xml",
+			exoterical:"true"
+		},{
+			package : "cj.netos.exchange.service",
+			extName : ".class|.json|.xml",
+			exoterical:"true"
+		},{
+				package : "cj.netos.exchange.ports",
+				extName : ".class|.json|.xml",
+				exoterical:"true"
+		},{
+			package : "cj.netos.exchange.cmd",
+			extName : ".class|.json|.xml",
+			exoterical:"true"
+		}
+		]
+
+	}
+}

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MybatisBuilder.project.settings">
+    <option name="connectionInfoList">
+      <list>
+        <ConnectionInfo>
+          <option name="database" value="netos.wallet.main" />
+          <option name="description" value="" />
+          <option name="driverClass" value="" />
+          <option name="driverLibrary" value="" />
+          <option name="driverType" value="MySQL" />
+          <option name="host" value="47.104.128.137" />
+          <option name="id" value="aca4c4e174784bc7b1050f36b91ba7a7" />
+          <option name="name" value="netos.wallet.main" />
+          <option name="port" value="3306" />
+          <option name="url" value="" />
+          <option name="userName" value="cj" />
+        </ConnectionInfo>
+        <ConnectionInfo>
+          <option name="database" value="netos.wallet.trade" />
+          <option name="description" value="" />
+          <option name="driverClass" value="" />
+          <option name="driverLibrary" value="" />
+          <option name="driverType" value="MySQL" />
+          <option name="host" value="47.104.128.137" />
+          <option name="id" value="695eb5cf26d94e06878e370a06500750" />
+          <option name="name" value="netos.wallet.trade" />
+          <option name="port" value="3306" />
+          <option name="url" value="" />
+          <option name="userName" value="cj" />
+        </ConnectionInfo>
+      </list>
+    </option>
+    <option name="defaultParameters">
+      <DefaultParameters>
+        <option name="renameConfig">
+          <Config>
+            <option name="mapperTypePattern" value="" />
+            <option name="exampleTypePattern" value="" />
+            <option name="sqlFileNamePattern" value="" />
+          </Config>
+        </option>
+        <option name="selectWithLockConfig">
+          <SelectWithLockConfig>
+            <option name="byPrimaryKeyWithLockOverride" value="" />
+            <option name="byExampleWithLockOverride" value="" />
+          </SelectWithLockConfig>
+        </option>
+      </DefaultParameters>
+    </option>
+    <option name="historyMap">
+      <map>
+        <entry key="JAVA_CLIENT_PACKAGE">
+          <value>
+            <list>
+              <option value="cj.netos.exchange.plugin.mapper" />
+              <option value="cj.netos.exchange.mapper" />
+            </list>
+          </value>
+        </entry>
+        <entry key="JAVA_MODEL_PACKAGE">
+          <value>
+            <list>
+              <option value="cj.netos.exchange.model" />
+            </list>
+          </value>
+        </entry>
+        <entry key="SQL_MAP_PACKAGE">
+          <value>
+            <list>
+              <option value="cj.db.mappings" />
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="lastGeneratorParamWrapper">
+      <GeneratorParamWrapper>
+        <option name="defaultTableConfigWrapper">
+          <TableConfigurationWrapper>
+            <option name="domainObjectRenamingRule">
+              <DomainObjectRenamingRule>
+                <option name="replaceString" value="" />
+                <option name="searchString" value="" />
+              </DomainObjectRenamingRule>
+            </option>
+            <option name="generatedKeyWrapper">
+              <GeneratedKeyWrapper>
+                <option name="column" value="" />
+              </GeneratedKeyWrapper>
+            </option>
+          </TableConfigurationWrapper>
+        </option>
+        <option name="javaClientConfig">
+          <JavaClientGeneratorConfiguration>
+            <option name="configurationType" value="XMLMAPPER" />
+            <option name="targetPackage" value="cj.netos.exchange.plugin.mapper" />
+            <option name="targetProject" value="$PROJECT_DIR$/cj.netos.exchange.plugin.key/src" />
+          </JavaClientGeneratorConfiguration>
+        </option>
+        <option name="javaModelConfig">
+          <JavaModelGeneratorConfiguration>
+            <option name="targetPackage" value="cj.netos.exchange.model" />
+            <option name="targetProject" value="$PROJECT_DIR$/cj.netos.exchange.openports/src" />
+          </JavaModelGeneratorConfiguration>
+        </option>
+        <option name="sqlMapConfig">
+          <SqlMapGeneratorConfiguration>
+            <option name="targetPackage" value="cj.db.mappings" />
+            <option name="targetProject" value="$PROJECT_DIR$/cj.netos.exchange.plugin.key/src" />
+          </SqlMapGeneratorConfiguration>
+        </option>
+      </GeneratorParamWrapper>
+    </option>
+    <option name="tableInfoMap">
+      <map>
+        <entry key="netos.wallet.main#weny_purch_record">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.wallet.main" />
+              <option name="domainName" value="WenyPurchRecord" />
+              <option name="tableComment" value="纹银申购流水表" />
+              <option name="tableName" value="weny_purch_record" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="netos.wallet.trade#weny_account">
+          <value>
+            <TableInfo>
+              <option name="database" value="netos.wallet.trade" />
+              <option name="domainName" value="WenyAccount" />
+              <option name="tableComment" value="纹银账户" />
+              <option name="tableName" value="weny_account" />
+            </TableInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
