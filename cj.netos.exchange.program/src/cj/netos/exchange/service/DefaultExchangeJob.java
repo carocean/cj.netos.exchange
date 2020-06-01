@@ -27,11 +27,10 @@ public class DefaultExchangeJob implements IExchangeJob {
     int limit = 10;
     long offset = 0;
     IServiceSite site;
-    long if_exchange_key_interval =15000L;
+
     public DefaultExchangeJob(IPurchaseService purchaseService, IServiceSite site) {
         this.purchaseService = purchaseService;
         this.site = site;
-        if_exchange_key_interval =Long.valueOf(site.getProperty("if_exchange_key_interval"));
         limit = Integer.valueOf(site.getProperty("key_limit"));
     }
 
@@ -41,39 +40,37 @@ public class DefaultExchangeJob implements IExchangeJob {
             List<WenyPurchRecord> records = purchaseService.page(key, limit, offset);
             if (records.isEmpty()) {
                 offset = 0;
-                try {
-                    Thread.sleep(if_exchange_key_interval);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
                 break;
             }
             int i = 0;
             for (WenyPurchRecord record : records) {
-                _exchange(record, priceBoard, offset + i);
+                if (!_exchange(record, priceBoard, offset + i)) {
+                    offset=0;
+                    return;
+                }
                 i++;
             }
             offset += records.size();
         }
     }
 
-    private void _exchange(WenyPurchRecord record, IPriceBoard priceBoard, long _offset) {
+    private boolean _exchange(WenyPurchRecord record, IPriceBoard priceBoard, long _offset) {
         BigDecimal payableAmount = record.getStock().multiply(priceBoard.getPrice(record.getBankid()));
         long purchAmount = record.getPurchAmount();
         long profit = payableAmount.longValue() - purchAmount;
         long almost = profit - record.getTtm().subtract(new BigDecimal(1.0)).multiply(new BigDecimal(record.getPurchAmount())).longValue();
-//        CJSystem.logging().info(getClass(), String.format("%s %s %s %s-%s=%s %s %s %s %s",
-//                record.getSn(),
-//                record.getPrice(),
-//                priceBoard.getPrice(record.getBankid()),
-//                payableAmount,
-//                purchAmount,
-//                profit,
-//                almost,
-//                profit > 0 ? "+" : "*",
-//                almost >= 0 ? "+" : "*",
-//                _offset
-//        ));
+        CJSystem.logging().info(getClass(), String.format("%s %s %s %s-%s=%s %s %s %s %s",
+                record.getSn(),
+                record.getPrice(),
+                priceBoard.getPrice(record.getBankid()),
+                payableAmount,
+                purchAmount,
+                profit,
+                almost,
+                profit > 0 ? "+" : "*",
+                almost >= 0 ? "+" : "*",
+                _offset
+        ));
         //如果almost>=0则清兑
         if (almost >= 0) {
             try {
@@ -83,6 +80,7 @@ public class DefaultExchangeJob implements IExchangeJob {
                 CJSystem.logging().error(getClass(), e.getMessage());
             }
         }
+        return almost>=0;
     }
 
     private Map<String, Object> call_exchange(String sn) throws CircuitException {

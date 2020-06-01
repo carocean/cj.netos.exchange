@@ -2,6 +2,7 @@ package cj.netos.exchange.service;
 
 import cj.netos.exchange.IPriceBoard;
 import cj.netos.exchange.bo.PriceBO;
+import cj.studio.ecm.CJSystem;
 import cj.studio.ecm.EcmException;
 import cj.studio.ecm.IServiceSite;
 import cj.studio.ecm.annotation.CjService;
@@ -17,16 +18,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 @CjService(name = "priceBoard")
 public class PriceBoard implements IPriceBoard {
     @CjServiceSite
     IServiceSite site;
     Map<String, AtomicReference<BigDecimal>> priceMap;
+    ReentrantLock lock;
+    Condition condition;
 
     public PriceBoard() {
         priceMap = new ConcurrentHashMap<>();
+        lock = new ReentrantLock();
+        condition = lock.newCondition();
     }
 
     @Override
@@ -45,7 +53,7 @@ public class PriceBoard implements IPriceBoard {
         return new BigDecimal(0.0);
     }
 
-    private  PriceBO call_get_price(String bankid) throws CircuitException {
+    private PriceBO call_get_price(String bankid) throws CircuitException {
         OkHttpClient client = (OkHttpClient) site.getService("@.http");
 
         String appid = site.getProperty("appid");
@@ -91,10 +99,32 @@ public class PriceBoard implements IPriceBoard {
 
     @Override
     public void update(PriceBO priceBO) {
+        try {
+            lock.lock();
+            condition.signalAll();
+        } finally {
+            lock.unlock();
+        }
         if (priceMap.containsKey(priceBO.getBankid())) {
             priceMap.get(priceBO.getBankid()).set(priceBO.getPrice());
             return;
         }
         priceMap.put(priceBO.getBankid(), new AtomicReference<>(priceBO.getPrice()));
+    }
+
+    @Override
+    public void awaitNotify(long await_timeout) {
+        try {
+            lock.lock();
+            if (await_timeout > 0) {
+                condition.await(await_timeout, TimeUnit.MILLISECONDS);
+            } else {
+                condition.await();
+            }
+        } catch (InterruptedException e) {
+            CJSystem.logging().error(getClass(), e);
+        } finally {
+            lock.unlock();
+        }
     }
 }

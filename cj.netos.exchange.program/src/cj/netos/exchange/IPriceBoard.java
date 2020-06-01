@@ -9,4 +9,6 @@ public interface IPriceBoard {
 
     void update(PriceBO priceBO);
 
+    void awaitNotify(long if_selectKey_null_interval);
+
 }

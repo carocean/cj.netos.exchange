@@ -9,12 +9,12 @@ public class ExchangeEventloop implements Runnable {
     IServiceProvider parent;
     IPriceBoard priceBoard;
     IExchangeService exchangeService;
-    long if_selectKey_null_interval = 15000;
+    long await_timeout = 15000;
 
     public ExchangeEventloop(IServiceProvider parent) {
         this.parent = parent;
         IServiceSite site = (IServiceSite) parent.getService("@.site");
-        if_selectKey_null_interval = Long.valueOf(site.getProperty("if_selectKey_null_interval"));
+        await_timeout = Long.valueOf(site.getProperty("await_timeout"));
         priceBoard = (IPriceBoard) parent.getService("priceBoard");
         exchangeService = (IExchangeService) parent.getService("exchangeService");
     }
@@ -25,6 +25,7 @@ public class ExchangeEventloop implements Runnable {
         while (!Thread.interrupted()) {
             try {
                 _loop();
+                priceBoard.awaitNotify(await_timeout);
             } catch (Exception e) {
                 CJSystem.logging().error(getClass(), e);
             }
@@ -34,7 +35,6 @@ public class ExchangeEventloop implements Runnable {
     private void _loop() throws InterruptedException {
         SelectKey key = exchangeService.selectKey();
         if (key == null) {
-            Thread.sleep(if_selectKey_null_interval);
             return;
         }
         synchronized (key) {
