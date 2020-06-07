@@ -59,7 +59,8 @@ public class DefaultExchangeJob implements IExchangeJob {
         long purchAmount = record.getPurchAmount();
         long profit = payableAmount.longValue() - purchAmount;
         long almost = profit - record.getTtm().subtract(new BigDecimal(1.0)).multiply(new BigDecimal(record.getPurchAmount())).longValue();
-        CJSystem.logging().info(getClass(), String.format("%s %s %s %s-%s=%s %s %s %s %s",
+        CJSystem.logging().info(getClass(), String.format("%s %s %s %s %s-%s=%s %s %s %s %s",
+                record.getBankid(),
                 record.getSn(),
                 record.getPrice(),
                 priceBoard.getPrice(record.getBankid()),
