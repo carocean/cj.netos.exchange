@@ -15,7 +15,7 @@ import com.rabbitmq.client.Envelope;
 
 import java.io.IOException;
 
-@CjConsumer(name = "price_effector")
+@CjConsumer(name = "fromWyBank_price_effector")
 @CjService(name = "/notify/price.ports#update")
 public class PriceUpdateCommand implements IConsumerCommand {
     @CjServiceRef
